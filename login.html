@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICSD Admin Login</title>
+    <style>
+        :root {
+            --primary-color: #61d5ff;
+            --secondary-color: #000;
+            --background-color: #000000;
+            --text-color: #333;
+            --hover-color: #4fa8cc;
+            --transition-speed: 0.3s;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: rgb(255, 255, 255);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            color: var(--text-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-container img {
+            max-width: 160px;
+            margin-bottom: 0.001rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.8rem;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+            transition: all var(--transition-speed);
+        }
+
+        .input-field:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            align-self: center;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+
+        .login-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        .error-msg {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 400px) {
+            .login-container {
+                padding: 1rem;
+                max-width: 320px;
+            }
+
+            .login-container h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .input-field {
+                padding: 0.4rem;
+                font-size: 0.9rem;
+            }
+
+            .login-btn {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .error-msg {
+                font-size: 0.8rem;
+                margin-top: 0.8rem;
+            }
+            @media (max-width: 300px) {
+    .login-container {
+        padding: 0.75rem;
+        max-width: 260px;
+    }
+
+    .login-container h1 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .login-container img {
+        max-width: 120px;
+    }
+
+    .input-field {
+        padding: 0.3rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.6rem;
+        border-radius: 8px;
+    }
+
+    .login-btn {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+        border-radius: 6px;
+    }
+
+    .error-msg {
+        font-size: 0.7rem;
+        margin-top: 0.6rem;
+    }
+
+    .footer {
+        font-size: 0.7rem;
+        bottom: 5px;
+    }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <img src="ICSDL.png" alt="ICSD Admin Logo">
+        <h1>ICSD Admin Portal Login</h1>
+        
+        <form id="login-form">
+            <input type="text" id="username" class="input-field" placeholder="Username" required><br>
+            <input type="password" id="password" class="input-field" placeholder="Password" required><br>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <div class="error-msg" id="error-msg"></div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 ICSD Admin Portal. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for login functionality
+        const loginForm = document.getElementById('login-form');
+        const errorMsg = document.getElementById('error-msg');
+
+        // Sample credentials for demonstration
+        const validUsername = 'icsd';
+        const validPassword = 'dumbs'; // Replace with a secure method
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent form submission to avoid page reload
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple validation (replace with a secure server-side check in a real app)
+            if (username === validUsername && password === validPassword) {
+                // Redirect to admin page if credentials are correct
+                window.location.href = 'admin.html';
+            } else {
+                // Show error message
+                errorMsg.textContent = 'Invalid username or password. Please try again.';
+            }
+        });
+    </script>
+
+</body>
+</html>

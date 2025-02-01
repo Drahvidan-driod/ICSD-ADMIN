@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recruitment Responses</title>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBFCw8NbteReP-NgjjTyinenXsEqOfJEJw",
+      authDomain: "icsd-5afdd.firebaseapp.com",
+      projectId: "icsd-5afdd",
+      storageBucket: "icsd-5afdd.firebasestorage.app",
+      messagingSenderId: "865187121871",
+      appId: "1:865187121871:web:6fc6da2ebbae2ed5f2c5ba",
+      measurementId: "G-S3CH9NP23F"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+
+    async function fetchResponses(phoneNumber = '') {
+      try {
+        const responsesContainer = document.getElementById("responsesContainer");
+        const responseCountElement = document.getElementById("responseCount");
+        responsesContainer.innerHTML = ''; // Clear previous results
+
+        let q;
+        if (phoneNumber) {
+          // Query by phone number if it's provided
+          q = query(collection(db, ""), where("phoneNumber", "==", phoneNumber));
+        } else {
+          // Otherwise fetch all responses
+          q = collection(db, "SMVideoResponses");
+        }
+
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          responsesContainer.innerHTML = '<p>No responses found.</p>';
+          responseCountElement.textContent = 'Response Count: 0';
+          return;
+        }
+
+        let responseCount = 0;
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const responseElement = document.createElement("div");
+          responseElement.classList.add("response");
+
+          responseElement.innerHTML = ` 
+            <h3>Response from Phone Number: ${data.phoneNumber}</h3>
+            <p>Answers:</p>
+            <ul>
+              ${data.answers.map((answer, index) => `<li><strong>Q${index + 1}:</strong> ${answer}</li>`).join('')}
+            </ul>
+            <hr>
+          `;
+          
+          responsesContainer.appendChild(responseElement);
+          responseCount++;
+        });
+
+        // Update response count
+        responseCountElement.textContent = `Response Count: ${responseCount}`;
+      } catch (error) {
+        console.error("Error fetching responses: ", error);
+      }
+    }
+
+    function handleSearch() {
+      const phoneNumber = document.getElementById("searchInput").value;
+      fetchResponses(phoneNumber);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      // Fetch all responses when the page loads
+      fetchResponses();
+
+      // Attach search functionality
+      document.getElementById("searchButton").addEventListener("click", handleSearch);
+      document.getElementById("searchInput").addEventListener("input", function() {
+        // Optionally, fetch responses as the user types
+        handleSearch();
+      });
+    });
+  </script>
+
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .responses-container {
+      background-color: #222;
+      color: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .response {
+      background-color: #333;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .response h3 {
+      color: #40e5f8;
+      margin-bottom: 10px;
+    }
+
+    .response ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .response li {
+      margin-bottom: 10px;
+      color: #fafafa;
+    }
+
+    .search-container {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .search-container input {
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .search-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #40e5f8;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .search-container button:hover {
+      background-color: #2cd6e9;
+    }
+
+    /* Styling for the response count */
+    .response-count {
+      font-size: 20px;
+      color: #40e5f8;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by phone number">
+    <button id="searchButton">Search</button>
+  </div>
+
+  <!-- Response count -->
+  <div id="responseCount" class="response-count">Response Count: 0</div>
+
+  <div id="responsesContainer" class="responses-container">
+    <h1>Recruitment Responses</h1>
+    <!-- Responses will be displayed here -->
+  </div>
+</body>
+</html>
+

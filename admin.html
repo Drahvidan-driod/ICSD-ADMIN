@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICSD Admin Portal</title>
+    <style>
+        /* General Reset and Variables */
+        :root {
+            --primary-color: #61d5ff;
+            --secondary-color: #000;
+            --text-color: #333;
+            --background-color: #f4f4f9;
+            --hover-color: #4fa8cc;
+            --transition-speed: 0.3s;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color var(--transition-speed);
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(to right, #000, #333);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-container {
+            flex: 0 0 auto;
+        }
+
+        header img {
+            max-width: 150px;
+            height: auto;
+            transition: transform var(--transition-speed);
+        }
+
+        header img:hover {
+            transform: scale(1.1);
+        }
+
+        .title-container {
+            flex: 1;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #ccc;
+            font-weight: 300;
+        }
+
+        /* Main Content Styling */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .response-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .response-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .response-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        .response-card a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .response-card a:hover {
+            background-color: var(--hover-color);
+            transform: scale(1.05);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+            font-size: 2rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        /* Footer Styling */
+        footer {
+            background: linear-gradient(to right, #000, #333);
+            color: #ccc;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        footer p {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .response-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .title-container {
+                position: static;
+                margin-top: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .response-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="Icsdt.png" alt="ICSD Admin Portal Logo">
+            </div>
+            <div class="title-container">
+                <h1>ICSD Admin Portal</h1>
+                <p>Your Central Hub for Administrative Tasks</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="section-title">Response Categories</h2>
+        <div class="response-grid">
+            <div class="response-card">
+                <a href="responses.html">Technical Response</a>
+            </div>
+            <div class="response-card">
+                <a href="Des.html">Design Response</a>
+            </div>
+            <div class="response-card">
+                <a href="op.html">Operations Response</a>
+            </div>
+            <div class="response-card">
+                <a href="sm.html">Social Media Response</a>
+            </div>
+            <div class="response-card">
+                <a href="rea.html">Research Response</a>
+            </div>
+            <div class="response-card">
+                <a href="webdev.html">Webdev Response</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ICSD Admin Portal. All rights reserved.</p>
+    </footer>
+</body>
+</html>
